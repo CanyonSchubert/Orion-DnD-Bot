@@ -1,0 +1,5 @@
+Select Party and Desired Dungeon or Hunt
+ -> Trash fights (ex. 6 skeletons)
+  -> Straightforward no positioning just cds and attack orders
+ -> Boss fights (ex. Jumbo Skelly)
+  -> Positioning in addition to cds and attack orders
