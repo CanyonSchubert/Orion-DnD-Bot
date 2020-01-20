@@ -17,7 +17,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class Register {
 
 	public static void run(MessageReceivedEvent event, List<String> args) {
-		System.out.println("Entered Register Command!");
+		System.out.println("\nEntered Register Command!");
 		
 		if (event.getAuthor().isBot()) return;
 		
@@ -63,6 +63,6 @@ public class Register {
 			System.out.println("Successfully saved the database!");
 		} catch (IOException e) { e.printStackTrace(); }
 		message.getAuthor().openPrivateChannel().queue(dm -> dm.sendMessage("Your Discord account has been successfully registered! Your next step should be using **" + 
-				prefix + "menu** and following the steps to create your first character!").queue());
+				prefix + "menu** and following the steps in the Character Menu to create your first character!").queue());
 	}
 }

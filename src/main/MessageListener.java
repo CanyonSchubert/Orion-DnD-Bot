@@ -16,9 +16,9 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import commands.Menu;
-import commands.Ping;
-import commands.Register;
+
+import commands.*;
+import commands.Character;
 
 public class MessageListener extends ListenerAdapter {
 	/*
@@ -61,7 +61,7 @@ public class MessageListener extends ListenerAdapter {
 			String[] splitter = content.split(" ");
 			command = splitter[0].substring(prefix.length(), splitter[0].length());
 			for (int i = 1; i < splitter.length; ++i) { args.add(splitter[i]); }
-			System.out.println("Command: " + command + '\n' + "Arguments: " + args.toString());
+			System.out.println("\nCommand: " + command + '\n' + "Arguments: " + args.toString());
 			
 			/*
 			 * Grabs the database from database.json.
@@ -95,6 +95,14 @@ public class MessageListener extends ListenerAdapter {
 			}
 			if (command.toLowerCase().equals("register")) {
 				Register.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("character")) {
+				Character.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().contentEquals("charcreate")) {
+				CharCreate.run(event, args);
 				return;
 			}
 			message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
