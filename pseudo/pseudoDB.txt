@@ -1,0 +1,99 @@
+Pseudo Database File Structure
+
+Users
+	-> 123/
+		-> Characters/
+			-> Nino/
+				-> Name.txt
+				-> Class.txt
+				-> Level.txt
+				-> Gear/ (Specific Folder {}, # of Files known and put as empty objects)
+					-> Head.txt
+					-> Weapon.txt
+					-> etc.
+				-> Bag/ (General Folder [], # of Files can be more or less)
+					-> HealthPotion.ref
+					-> ManaPotion.ref
+					-> etc.
+				-> Stats/ (Specific Folder {})
+					-> Health.txt
+					-> Attack.txt
+					-> etc.
+				-> StatPoints.txt
+				-> TalentPoints.txt
+				-> Abilities/ (General Folder [])
+					-> Fireball.ref
+					-> LesserHeal.ref
+					-> etc.
+			-> Buck/
+				-> Same Files as Nino.
+		-> Username.txt
+		-> Selected/
+			-> Nino or Buck/ (Only one, copy of character folder)
+	-> 456/
+		-> Characters/
+			-> etc.
+		-> Username.txt
+		-> Selected/
+			-> etc.
+			
+Classes
+	-> Warrior/
+		-> Description.txt
+		-> Tags/
+			-> Tank.ref
+			-> DPS.ref
+			-> etc.
+		-> Base Stats/
+			-> Health.txt
+			-> Attack.txt
+			-> etc.
+		-> Abilities/
+			-> Slash.ref
+			-> Hack.ref
+			-> etc.
+		-> Subclasses/
+			-> Barbarian/
+				-> Description.txt
+				-> StatGrowth/
+					-> HealthChange.txt
+					-> AttackChange.txt
+					-> etc.
+				-> Abilities/
+					-> etc.
+				-> Profs/
+					-> etc.
+			-> Berserker/
+				-> Desc.
+				-> Stat/
+				-> Abil/
+				-> Profs/
+			-> PitFighter/
+				-> Desc.
+				-> Stat/
+				-> Abil/
+				-> Profs/
+		-> Proficiencies/ (Gear they can use)
+			-> Axes.ref
+			-> MediumArmor.ref
+			-> etc.
+	-> Ranger/
+		->
+		->
+			->
+		->
+			->
+		->
+			->
+				->
+			->
+				->
+			->
+				->
+		->
+			->
+
+Items
+
+
+Abilities

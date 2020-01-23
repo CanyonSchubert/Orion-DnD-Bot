@@ -82,8 +82,12 @@ public class MessageListener extends ListenerAdapter {
 				Character.run(event, args);
 				return;
 			}
-			if (command.toLowerCase().contentEquals("charcreate")) {
+			if (command.toLowerCase().equals("charcreate")) {
 				CharCreate.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("charselect")) {
+				CharSelect.run(event, args);
 				return;
 			}
 			message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
