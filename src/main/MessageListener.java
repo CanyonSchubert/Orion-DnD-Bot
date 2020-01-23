@@ -1,22 +1,18 @@
 package main;
 
 //import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 //import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
+import resources.Authenticator;
+import resources.Database;
 import commands.*;
 import commands.Character;
 
@@ -35,16 +31,8 @@ public class MessageListener extends ListenerAdapter {
 			 * Grabs the prefix from auth.json.
 			 * 
 			 */
-			String prefixAuth = "";
-			String command = "";
-			List<String> args = new ArrayList<String>();
-			JSONParser json = new JSONParser();
-			try {
-				JSONObject res = (JSONObject) json.parse(new FileReader("./src/main/auth.json"));
-				
-				prefixAuth = (String) res.get("prefix");
-			} catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } catch (ParseException e) { e.printStackTrace(); }
-			final String prefix = prefixAuth;
+			Authenticator auth = new Authenticator();
+			final String prefix = auth.getPrefix();
 			
 			/*
 			 * Checks to see if a message starts with the command prefix
@@ -53,11 +41,14 @@ public class MessageListener extends ListenerAdapter {
 			Message message = event.getMessage();
 			String content = message.getContentRaw();
 			if (content.length() == 0 || !(content.substring(0, prefix.length()).equals(prefix))) return;
+			MessageChannel channel = message.getChannel();
 			
 			/*
 			 * Splits the command and arguments into their respective variables
 			 * 
 			 */
+			String command = "";
+			List<String> args = new ArrayList<String>();
 			String[] splitter = content.split(" ");
 			command = splitter[0].substring(prefix.length(), splitter[0].length());
 			for (int i = 1; i < splitter.length; ++i) { args.add(splitter[i]); }
@@ -67,16 +58,10 @@ public class MessageListener extends ListenerAdapter {
 			 * Grabs the database from database.json.
 			 * 
 			 */
-			List<String> regUsers = new ArrayList<String>();
-			try {
-				JSONObject db = (JSONObject) json.parse(new FileReader("./database/json/database.json"));
-				JSONObject users = (JSONObject) db.get("users");
-				for (Object key : users.keySet()) { regUsers.add(key.toString()); }			
-			} catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } catch (ParseException e) { e.printStackTrace(); }
-
-			MessageChannel channel = message.getChannel();
+			Database userDB = new Database("users");
+			JSONObject users = userDB.getDatabase();
 			
-			if (!(regUsers.contains(message.getAuthor().getId())) && !(command.equals("register"))) {
+			if (!(users.containsKey(message.getAuthor().getId())) && !(command.equals("register"))) {
 				channel.sendMessage("Please register to gain further access. To do this simply use the command: **" + prefix + "register**").queue();
 				return;
 			}
@@ -85,10 +70,6 @@ public class MessageListener extends ListenerAdapter {
 			 * Creates collection of commands and delegates the arguments to one of them.
 			 * TODO: Command Collection
 			 */
-			if (command.toLowerCase().equals("ping")) {
-				Ping.run(event, args);
-				return;
-			}
 			if (command.toLowerCase().equals("menu")) {
 				Menu.run(event, args);
 				return;

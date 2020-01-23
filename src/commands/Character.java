@@ -2,20 +2,18 @@ package commands;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import resources.Authenticator;
+import resources.Database;
 
 public class Character {
 
@@ -26,37 +24,30 @@ public class Character {
 		
 		/*
 		 * Grabs the prefix from auth.json.
-		 * 
+		 * Gets message and channel for ease of access.
+		 * Grabs the user database from users.json.
 		 */
-		String prefixAuth = "";
-		JSONParser json = new JSONParser();
-		try {
-			JSONObject res = (JSONObject) json.parse(new FileReader("./src/main/auth.json"));
-			
-			prefixAuth = (String) res.get("prefix");
-		} catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } catch (ParseException e) { e.printStackTrace(); }
-		final String prefix = prefixAuth;
+		Authenticator auth = new Authenticator();
+		final String prefix = auth.getPrefix();
 		
 		Message message = event.getMessage();
 		MessageChannel channel = message.getChannel();
 		
-		/*
-		 * Grabs the database from database.json.
-		 * 
-		 */
-		JSONObject db = new JSONObject();
-		try {
-			db = (JSONObject) json.parse(new FileReader("./database/json/database.json"));	
-		} catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } catch (ParseException e) { e.printStackTrace(); }
-		JSONObject users = (JSONObject) db.get("users");
+		Database userDB = new Database("users");
+		JSONObject users = userDB.getDatabase();
 		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
-		JSONObject characters = (JSONObject) user.get("characters");
-		JSONObject selected = (JSONObject) characters.get((String) user.get("selected"));
+		JSONObject selected = (JSONObject) user.get("selected");
 		
-		String footer = "No Selected Character";
-		try {
+		/*
+		 * Sets up the footer with the selected character (or "No Character").
+		 * Populates the embed.
+		 * Sends the menu in a dm to the requester.
+		 */
+		String footer;
+		if (!(selected.get("name") == null)) 
 			footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
-		} catch (NullPointerException e) { System.out.println("ERROR: User has no selected character!"); }
+		else footer = "No Character";
+		
 		final File file = new File("./assets/placeholders/placeholder-icon.png"); // TODO: Update to official icon
 		final EmbedBuilder embed = new EmbedBuilder()
 				.setTitle("Character Menu")
@@ -72,6 +63,8 @@ public class Character {
 				.setTimestamp(Instant.now())
 				;
 		
+		if (!(channel.getType() == ChannelType.PRIVATE))
+			channel.sendMessage("<@" + message.getAuthor().getId() + ">, Check your DMs.").queue();
 		message.getAuthor().openPrivateChannel().queue(dm -> dm.sendMessage(embed.build()).addFile(file, "placeholder-icon.png").queue());
 	}
 }

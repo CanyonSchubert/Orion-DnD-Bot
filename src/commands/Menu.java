@@ -2,20 +2,17 @@ package commands;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import resources.Authenticator;
+import resources.Database;
 
 public class Menu {
 
@@ -26,37 +23,30 @@ public class Menu {
 		
 		/*
 		 * Grabs the prefix from auth.json.
-		 * 
+		 * Gets the message and channels for ease of access.
+		 * Grabs the User Database from users.json.
 		 */
-		String prefixAuth = "";
-		JSONParser json = new JSONParser();
-		try {
-			JSONObject res = (JSONObject) json.parse(new FileReader("./src/main/auth.json"));
-			
-			prefixAuth = (String) res.get("prefix");
-		} catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } catch (ParseException e) { e.printStackTrace(); }
-		final String prefix = prefixAuth;
+		Authenticator auth = new Authenticator();
+		final String prefix = auth.getPrefix();
 
 		Message message = event.getMessage();
 		MessageChannel channel = message.getChannel();
+
+		Database userDB = new Database("users");
+		JSONObject users = userDB.getDatabase();
+		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
+		JSONObject selected = (JSONObject) user.get("selected");
 		
 		/*
-		 * Grabs the database from database.json.
-		 * 
+		 * Sets up the footer with the selected character (or "No Character").
+		 * Populates the embed.
+		 * Sends the menu to the channel it was requested from.
 		 */
-		JSONObject db = new JSONObject();
-		try {
-			db = (JSONObject) json.parse(new FileReader("./database/json/database.json"));	
-		} catch (FileNotFoundException e) { e.printStackTrace(); } catch (IOException e) { e.printStackTrace(); } catch (ParseException e) { e.printStackTrace(); }
-		JSONObject users = (JSONObject) db.get("users");
-		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
-		JSONObject characters = (JSONObject) user.get("characters");
-		JSONObject selected = (JSONObject) characters.get((String) user.get("selected"));
-		
-		String footer = "No Selected Character";
-		try {
+		String footer;
+		if (!(selected.get("name") == null)) 
 			footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
-		} catch (NullPointerException e) { System.out.println("ERROR: User has no selected character!"); }
+		else footer = "No Character";
+
 		File file = new File("./assets/placeholders/placeholder-icon.png"); // TODO: Update to official icon
 		File file2 = new File("./assets/placeholders/placeholder-title.jpg"); // TODO: Update to official title
 		EmbedBuilder embed = new EmbedBuilder()
@@ -72,7 +62,7 @@ public class Menu {
 				.setThumbnail("attachment://placeholder-icon.png") // TODO: See line "File file..."
 				.setTimestamp(Instant.now())
 				;
-		
+
 		channel.sendMessage(embed.build()).addFile(file, "placeholder-icon.png").addFile(file2, "placeholder-title.jpg").queue();
 	}
 }
