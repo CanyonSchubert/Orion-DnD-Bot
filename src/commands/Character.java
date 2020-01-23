@@ -8,30 +8,31 @@ import java.util.List;
 import org.json.simple.JSONObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import resources.Authenticator;
 import resources.Database;
 
-public class Menu {
+public class Character {
 
 	public static void run(MessageReceivedEvent event, List<String> args) {
-		System.out.println("\nEntered Menu Command!");
+		System.out.println("\nEntered Character Command!");
 		
 		if (event.getAuthor().isBot()) return;
 		
 		/*
 		 * Grabs the prefix from auth.json.
-		 * Gets the message and channels for ease of access.
-		 * Grabs the User Database from users.json.
+		 * Gets message and channel for ease of access.
+		 * Grabs the user database from users.json.
 		 */
 		Authenticator auth = new Authenticator();
 		final String prefix = auth.getPrefix();
-
+		
 		Message message = event.getMessage();
 		MessageChannel channel = message.getChannel();
-
+		
 		Database userDB = new Database("users");
 		JSONObject users = userDB.getDatabase();
 		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
@@ -40,29 +41,30 @@ public class Menu {
 		/*
 		 * Sets up the footer with the selected character (or "No Character").
 		 * Populates the embed.
-		 * Sends the menu to the channel it was requested from.
+		 * Sends the menu in a dm to the requester.
 		 */
 		String footer;
 		if (!(selected.get("name") == null)) 
 			footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
 		else footer = "No Character";
-
-		File file = new File("./assets/placeholders/placeholder-icon.png"); // TODO: Update to official icon
-		File file2 = new File("./assets/placeholders/placeholder-title.jpg"); // TODO: Update to official title
-		EmbedBuilder embed = new EmbedBuilder()
-				.setTitle("Main Menu")
+		
+		final File file = new File("./assets/placeholders/placeholder-icon.png"); // TODO: Update to official icon
+		final EmbedBuilder embed = new EmbedBuilder()
+				.setTitle("Character Menu")
 				.setColor(new Color(0x1330c2))
 				.setDescription("Please pick a command from this menu. For a more detailed description of the command, use " + prefix + "help [menu item].")
-				.addField("Character Menu", "**" + prefix + "character**", false)
-				.addField("Party Menu", "**" + prefix + "party**", false)
-				.addField("Adventure Menu", "**" + prefix + "adventure**", false)
+				.addField("Create a Character", "**" + prefix + "charcreate**", false)
+				.addField("Select Active Character", "**" + prefix + "charselect**", false)
+				.addField("Active Character Info", "**" + prefix + "charinfo**", false)
 				.setAuthor("Orion", null, event.getJDA().getSelfUser().getAvatarUrl()) // TODO: Update Discord avatar to official logo, Change null to official webpage
 				.setFooter(footer)
-				.setImage("attachment://placeholder-title.jpg") // TODO: See line "File file2..."
+				.setImage(null)
 				.setThumbnail("attachment://placeholder-icon.png") // TODO: See line "File file..."
 				.setTimestamp(Instant.now())
 				;
-
-		channel.sendMessage(embed.build()).addFile(file, "placeholder-icon.png").addFile(file2, "placeholder-title.jpg").queue();
+		
+		if (!(channel.getType() == ChannelType.PRIVATE))
+			channel.sendMessage("<@" + message.getAuthor().getId() + ">, Check your DMs.").queue();
+		message.getAuthor().openPrivateChannel().queue(dm -> dm.sendMessage(embed.build()).addFile(file, "placeholder-icon.png").queue());
 	}
 }
