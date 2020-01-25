@@ -119,7 +119,7 @@ public class CharCreate {
 				for (Object nextSub : subclasses.values()) {
 					subClass = (JSONObject) nextSub;
 					if (subCounter < subclasses.values().size()-1) field += ("**" + subClass.get("id") + "**, ");
-					else field += (" or **" + subClass.get("id") + "**.");					
+					else field += ("or **" + subClass.get("id") + "**.");					
 					++subCounter;
 				}
 				embed.addField(title, field, true);
@@ -131,7 +131,7 @@ public class CharCreate {
 			}
 			
 			/*
-			 * footer generation for embed
+			 * footer generation for embed.
 			 */
 			String footer;
 			if (!(selected.get("name") == null)) 
@@ -206,7 +206,7 @@ public class CharCreate {
 
 			userDB.saveDatabase(users);
 			
-			channel.sendMessage("Your character, **" + charName + "** (" + charClass + "), has been successfully created!").queue(); // TODO: Change args.get(1) to the name of the selected class
+			channel.sendMessage("Your character, **" + charName + "** (" + charClass + "), has been successfully created!").queue();
 			return;
 		}
 		

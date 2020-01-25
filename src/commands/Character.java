@@ -56,6 +56,7 @@ public class Character {
 				.addField("Create a Character", "**" + prefix + "charcreate**", false)
 				.addField("Select Active Character", "**" + prefix + "charselect**", false)
 				.addField("Active Character Info", "**" + prefix + "charinfo**", false)
+				.addField("Delete a Character", "**" + prefix + "chardelete**", false)
 				.setAuthor("Orion", null, event.getJDA().getSelfUser().getAvatarUrl()) // TODO: Update Discord avatar to official logo, Change null to official webpage
 				.setFooter(footer)
 				.setImage(null)

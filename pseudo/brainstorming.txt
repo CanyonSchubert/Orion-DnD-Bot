@@ -1,0 +1,64 @@
+Select Party and Desired Dungeon or Hunt
+ -> Trash fights (ex. 6 skeletons)
+  -> Straightforward no positioning just cds and attack orders
+  
+ -> Boss fights (ex. Jumbo Skelly)
+  -> Positioning in addition to cds and attack orders
+  
+Stats
+ -> Vitality (VIT | Affects max health)
+ -> Spirit (SPR | Affects max resources & resource generation)
+ -> Strength (STR | Affects physical potency)
+ -> Aptitude (APT | Affects magical potency)
+ -> Agility (AGL | Affects turn order and elusiveness)
+ -> Finesse (FIN | Affects critical rate & accuracy)
+ -> Luck (LCK | Affects critical avoidance & various other effects)
+ -> Hardiness (HRD | Affects physical resistance)
+ -> Resilience (RES | Affects magical resistance)
+  
+Damage Types
+ -> Physical
+  -> Bashing (2x -> Light Armor | .5x -> Heavy Armor)
+  -> Slashing (2x -> Medium Armor | .5x -> Light Armor)
+  -> Piercing (2x -> Heavy Armor | .5x -> Medium Armor)
+  -> Bleed (0x -> Undead/Inanimate)
+  -> Poison (0x -> Undead/Inanimate)
+	
+ -> Magical
+  -> Fire (2x -> Force | .5x -> Frost)
+  -> Frost (2x -> Fire | .5x -> Force)
+  -> Force (2x -> Frost | .5x -> Fire)
+  
+  -> Lightning (1.2x -> All | 1.2x <- All)
+  
+  -> Shadow (2x -> Radiant | .5x -> Nature)
+  -> Radiant (2x -> Shadow | .5x -> Necrotic)
+  
+  -> Nature (2x -> Necrotic | .5x -> Shadow)
+  -> Necrotic (2x -> Nature | .5x -> Radiant)
+  
+Classes
+ -> Warrior (Physical)
+  -> Barbarian (Physical)
+  -> Berserker (Physical/Lightning)
+  -> Pit Fighter (Physical/Bleed)
+ 
+ -> Ranger (Physical)
+  -> Gunslinger (Physical/Bleed)
+  -> Sniper (Physical)
+  -> Bowmaster (Physical/Nature)
+  
+ -> Cleric (Radiant)
+  -> Bishop (Radiant)
+  -> Diviner (Radiant/Shadow)
+  -> Crucifier (Radiant/Fire/Physical)
+  
+ -> Sorcerer (Fire/Frost/Force)
+  -> Pyromancer (Fire)
+  -> Cryomancer (Frost)
+  -> Arcanist (Force)
+  
+ -> Paladin (Physical/Radiant)
+  -> Crusader (Physical/Radiant)
+  -> Knight (Physical/Radiant)
+  -> Purifier (Radiant/Fire)
