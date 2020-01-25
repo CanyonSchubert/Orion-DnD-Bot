@@ -90,6 +90,10 @@ public class MessageListener extends ListenerAdapter {
 				CharSelect.run(event, args);
 				return;
 			}
+			if (command.toLowerCase().equals("chardelete")) {
+				CharDelete.run(event, args);
+				return;
+			}
 			message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
 		}
 	}
