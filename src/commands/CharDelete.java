@@ -52,7 +52,6 @@ public class CharDelete {
 			final File file = new File("./assets/placeholders/placeholder-icon.png");
 			EmbedBuilder embed = new EmbedBuilder();
 			embed.setTitle("Character Deletion");
-			embed.setColor(new Color(0x1330c2));
 			embed.setAuthor("Orion", null, event.getJDA().getSelfUser().getAvatarUrl());
 			embed.setImage(null);
 			embed.setThumbnail("attachment://placeholder-icon.png");
@@ -80,13 +79,22 @@ public class CharDelete {
 			}
 			
 			/*
-			 * footer generation for embed.
+			 * Sets up the footer with the selected character (or "No Character") and color preference (or 0x1330c2).
+			 * Populates the embed.
+			 * Sends the menu to the channel it was requested from.
 			 */
 			String footer;
 			if (!(selected.get("name") == null)) 
 				footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
 			else footer = "No Character";
+			
+			Color prefColor;
+			if (!(selected.get("color") == null))
+				prefColor = new Color(Integer.decode((String) selected.get("color")));
+			else prefColor = new Color(0x1330c2);
+			
 			embed.setFooter(footer);
+			embed.setColor(prefColor);
 			
 			/*
 			 * sends the menu in a dm to the requester.

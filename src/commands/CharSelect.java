@@ -52,7 +52,6 @@ public class CharSelect {
 			final File file = new File("./assets/placeholders/placeholder-icon.png");
 			EmbedBuilder embed = new EmbedBuilder();
 			embed.setTitle("Character Select");
-			embed.setColor(new Color(0x1330c2));
 			embed.setAuthor("Orion", null, event.getJDA().getSelfUser().getAvatarUrl());
 			embed.setImage(null);
 			embed.setThumbnail("attachment://placeholder-icon.png");
@@ -80,13 +79,22 @@ public class CharSelect {
 			}
 			
 			/*
-			 * footer generation for embed.
+			 * Sets up the footer with the selected character (or "No Character") and color preference (or 0x1330c2).
+			 * Populates the embed.
+			 * Sends the menu to the channel it was requested from.
 			 */
 			String footer;
 			if (!(selected.get("name") == null)) 
 				footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
 			else footer = "No Character";
+			
+			Color prefColor;
+			if (!(selected.get("color") == null))
+				prefColor = new Color(Integer.decode((String) selected.get("color")));
+			else prefColor = new Color(0x1330c2);
+			
 			embed.setFooter(footer);
+			embed.setColor(prefColor);
 			
 			/*
 			 * sends the menu in a dm to the requester.
@@ -109,7 +117,6 @@ public class CharSelect {
 			for (Object nextChar : characters.values()) {
 				character = (JSONObject) nextChar;
 				if (args.get(0).equals(Integer.toString(count))) {
-					selected = character;
 					charFound = true;
 					break;
 				}
@@ -120,10 +127,12 @@ public class CharSelect {
 				return;
 			}
 			
+			characters.put(selected.get("name"), selected);
+			user.put("characters", characters);
 			user.put("selected", character);
 			userDB.saveDatabase(users);
 			
-			channel.sendMessage(selected.get("name") + " is now your selected character!").queue();
+			channel.sendMessage(character.get("name") + " is now your selected character!").queue();
 			return;
 		}
 		

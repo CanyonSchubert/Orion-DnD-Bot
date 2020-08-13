@@ -26,7 +26,7 @@ public class Database {
 	}
 	
 	public JSONObject getDatabase() {
-		System.out.println("Successfully retrieved the database!");
+		System.out.println("Successfully retrieved the " + this.dbType + " database!");
 		return this.db;
 	}
 	

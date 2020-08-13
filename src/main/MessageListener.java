@@ -94,6 +94,10 @@ public class MessageListener extends ListenerAdapter {
 				CharDelete.run(event, args);
 				return;
 			}
+			if (command.toLowerCase().equals("charcolor")) {
+				CharColor.run(event, args);
+				return;
+			}
 			message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
 		}
 	}

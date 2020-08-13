@@ -39,19 +39,24 @@ public class Character {
 		JSONObject selected = (JSONObject) user.get("selected");
 		
 		/*
-		 * Sets up the footer with the selected character (or "No Character").
+		 * Sets up the footer with the selected character (or "No Character") and color preference (or 0x1330c2).
 		 * Populates the embed.
-		 * Sends the menu in a dm to the requester.
+		 * Sends the menu to the channel it was requested from.
 		 */
 		String footer;
 		if (!(selected.get("name") == null)) 
 			footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
 		else footer = "No Character";
 		
+		Color prefColor;
+		if (!(selected.get("color") == null))
+			prefColor = new Color(Integer.decode((String) selected.get("color")));
+		else prefColor = new Color(0x1330c2);
+		
 		final File file = new File("./assets/placeholders/placeholder-icon.png"); // TODO: Update to official icon
 		final EmbedBuilder embed = new EmbedBuilder()
 				.setTitle("Character Menu")
-				.setColor(new Color(0x1330c2))
+				.setColor(prefColor)
 				.setDescription("Please pick a command from this menu. For a more detailed description of the command, use " + prefix + "help [menu item].")
 				.addField("Create a Character", "**" + prefix + "charcreate**", false)
 				.addField("Select Active Character", "**" + prefix + "charselect**", false)
