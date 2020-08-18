@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import main.App;
+import main.MessageListener;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -32,13 +34,15 @@ public class Menu {
 		Message message = event.getMessage();
 		MessageChannel channel = message.getChannel();
 
-		Database userDB = new Database("users");
+		Database userDB;
+		if (!App.DEV_MODE) userDB = new Database("users");
+		else userDB = new Database("sampledb");
 		JSONObject users = userDB.getDatabase();
 		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
 		JSONObject selected = (JSONObject) user.get("selected");
 		
 		/*
-		 * Sets up the footer with the selected character (or "No Character").
+		 * Sets up the footer with the selected character (or "No Character") and color preference (or 0x1330c2).
 		 * Populates the embed.
 		 * Sends the menu to the channel it was requested from.
 		 */
@@ -46,12 +50,17 @@ public class Menu {
 		if (!(selected.get("name") == null)) 
 			footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
 		else footer = "No Character";
+		
+		Color prefColor;
+		if (!(selected.get("color") == null))
+			prefColor = new Color(Integer.decode((String) selected.get("color")));
+		else prefColor = new Color(0x1330c2);
 
 		File file = new File("./assets/placeholders/placeholder-icon.png"); // TODO: Update to official icon
 		File file2 = new File("./assets/placeholders/placeholder-title.jpg"); // TODO: Update to official title
 		EmbedBuilder embed = new EmbedBuilder()
 				.setTitle("Main Menu")
-				.setColor(new Color(0x1330c2))
+				.setColor(prefColor)
 				.setDescription("Please pick a command from this menu. For a more detailed description of the command, use " + prefix + "help [menu item].")
 				.addField("Character Menu", "**" + prefix + "character**", false)
 				.addField("Party Menu", "**" + prefix + "party**", false)

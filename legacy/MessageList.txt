@@ -1,0 +1,92 @@
+			/*
+			 * This was the old delegator of commands.
+			 * Creates collection of commands and delegates the arguments to one of them.
+			 * TODO: Command Collection
+			 
+			if (command.toLowerCase().equals("menu")) {
+				Menu.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("register")) {
+				Register.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("character")) {
+				Character.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("charcreate")) {
+				CharCreate.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("charselect")) {
+				CharSelect.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("chardelete")) {
+				CharDelete.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("charcolor")) {
+				CharColor.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("test")) {
+				Test.run(event, args);
+				return;
+			}
+			if (command.toLowerCase().equals("reload")) {
+				Reload.run(event, args);
+				return;
+			}
+			message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
+		*/
+		
+		
+		/*
+		 * This graveyard was my attempt at creating a list of commands to implement a reload command. 
+		 * As well as some other command modifications (like cooldowns). 
+		 * It would never work the way I wanted (between different machines) because it would only 
+		 * ever take the files off of the machine it was running on anyway. This may still be 
+		 * possible with a List of class and manually inserting the classes into the List then 
+		 * refreshing whichever class name matches on a reload.
+		 * 
+		File commandDir;
+		File[] cmds;
+		Map<String, Method> cmdList;
+		Command cmd;
+		
+		public MessageListener() {
+			commandDir = new File("src/commands");
+			cmds = commandDir.listFiles();
+			
+			for (int i = 0; i < cmds.length; ++i) {
+				if (cmds[i].getName().endsWith(".java")) {				
+					Command newCmd = new Command(cmds[i].getName().replace(".java", ""), cmds[i]);
+					try {
+						cmdList.put(newCmd.getName(), ((Class) newCmd.getName()).getClass().getDeclaredMethod("run", MessageReceivedEvent.class, List.class));
+					} catch (NoSuchMethodException e) {
+						System.out.println("Cannot find run method in command: " + newCmd.getName());
+						e.printStackTrace();
+						return;
+					} catch (SecurityException e) {
+						System.out.println("Security Exception for command: " + newCmd.getName());
+						e.printStackTrace();
+						return;
+					}
+				}
+			}
+			
+			System.out.println(cmdList.toString());
+		}
+		*/
+		
+		/*
+		 * Gets the corresponding file for the command from Command LinkedList
+		 
+		
+		for (int i = 0; i < cmdList.size(); ++i) {
+			if (command.toLowerCase().equals(cmdList.get(i).getName().toLowerCase())) {
+				cmd = cmdList.get(i);
+			}
+		}*/

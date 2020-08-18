@@ -1,9 +1,13 @@
 package main;
 
-//import java.io.File;
-//import java.io.FilenameFilter;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -17,14 +21,30 @@ import commands.*;
 import commands.Character;
 
 public class MessageListener extends ListenerAdapter {
+	
+	LinkedList<Class> commands = new LinkedList<Class>();
+	
 	/*
-	File commandFolder = new File("./src/commands");
-	File[] cmds = commandFolder.listFiles(new FilenameFilter() {
-		@Override
-		public boolean accept(File dir, String name) { return name.endsWith(".java"); }
-		});
-	*/
+	 * Initializes all commands into a LinkedList.
+	 * Update this with every new command until it's possible/known how to fill the LinkedList
+	 * from the file system.
+	 */
+	public MessageListener() {
+		commands.add(Character.class);
+		commands.add(CharColor.class);
+		commands.add(CharCreate.class);
+		commands.add(CharDelete.class);
+		commands.add(CharSelect.class);
+		commands.add(Menu.class);
+		commands.add(Register.class);
+		commands.add(Test.class);
+	}
+	
+	public LinkedList<Class> getCommands() {
+		return this.commands;
+	}
 		
+		@SuppressWarnings("unchecked")
 		@Override
 		public void onMessageReceived(MessageReceivedEvent event) {
 			/*
@@ -40,7 +60,7 @@ public class MessageListener extends ListenerAdapter {
 			 */
 			Message message = event.getMessage();
 			String content = message.getContentRaw();
-			if (content.length() == 0 || !(content.substring(0, prefix.length()).equals(prefix))) return;
+			if (content.length() < prefix.length() || !(content.substring(0, prefix.length()).equals(prefix))) return;
 			MessageChannel channel = message.getChannel();
 			
 			/*
@@ -58,7 +78,9 @@ public class MessageListener extends ListenerAdapter {
 			 * Grabs the database from database.json.
 			 * 
 			 */
-			Database userDB = new Database("users");
+			Database userDB;
+			if (!App.DEV_MODE) userDB = new Database("users");
+			else userDB = new Database("sampledb");
 			JSONObject users = userDB.getDatabase();
 			
 			if (!(users.containsKey(message.getAuthor().getId())) && !(command.equals("register"))) {
@@ -66,34 +88,35 @@ public class MessageListener extends ListenerAdapter {
 				return;
 			}
 			
-			/*
-			 * Creates collection of commands and delegates the arguments to one of them.
-			 * TODO: Command Collection
-			 */
-			if (command.toLowerCase().equals("menu")) {
-				Menu.run(event, args);
-				return;
-			}
-			if (command.toLowerCase().equals("register")) {
-				Register.run(event, args);
-				return;
-			}
-			if (command.toLowerCase().equals("character")) {
-				Character.run(event, args);
-				return;
-			}
-			if (command.toLowerCase().equals("charcreate")) {
-				CharCreate.run(event, args);
-				return;
-			}
-			if (command.toLowerCase().equals("charselect")) {
-				CharSelect.run(event, args);
-				return;
-			}
-			if (command.toLowerCase().equals("chardelete")) {
-				CharDelete.run(event, args);
-				return;
+			for (int i = 0; i < commands.size(); ++i) { // why doesn't this need ++i?
+				if (command.toLowerCase().equals(commands.get(i).getName().replace("commands.", "").toLowerCase())) {
+					try {
+						Method cmd = commands.get(i).getDeclaredMethod("run", MessageReceivedEvent.class, List.class);
+						cmd.invoke(commands.get(i), event, args);
+						return;
+					} catch (NoSuchMethodException e) {
+						System.out.println("Cannot find run method in command: " + commands.get(i).getName().replace("commands.", ""));
+						e.printStackTrace();
+						return;
+					} catch (SecurityException e) {
+						System.out.println("Security Exception for command: " + commands.get(i).getName().replace("commands.", ""));
+						e.printStackTrace();
+						return;
+					} catch (IllegalAccessException e) {
+						System.out.println("Illegal Access Exception for command: " + commands.get(i).getName().replace("commands.", ""));
+						e.printStackTrace();
+						return;
+					} catch (IllegalArgumentException e) {
+						System.out.println("Illegal Argument Exception for command: " + commands.get(i).getName().replace("commands.", ""));
+						e.printStackTrace();
+						return;
+					} catch (InvocationTargetException e) {
+						System.out.println("Invocation Target Exception for command: " + commands.get(i).getName().replace("commands.", ""));
+						e.printStackTrace();
+						return;
+					}
+				}
 			}
 			message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
-		}
+		}	
 	}

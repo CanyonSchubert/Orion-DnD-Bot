@@ -18,7 +18,7 @@ public class Database {
 		this.dbType = dbType.toLowerCase();
 		
 		try {
-			this.db = (JSONObject) json.parse(new FileReader("./database/json/" + dbType.toLowerCase() + ".json"));	
+			this.db = (JSONObject) json.parse(new FileReader("./database/json/" + dbType.toLowerCase() + ".json"));
 		} catch (FileNotFoundException e) { 
 			System.out.println(dbType + " Database File not found, creating one now!");			
 			saveDatabase(this.db);
@@ -26,7 +26,7 @@ public class Database {
 	}
 	
 	public JSONObject getDatabase() {
-		System.out.println("Successfully retrieved the database!");
+		System.out.println("Successfully retrieved the " + this.dbType + " database!");
 		return this.db;
 	}
 	

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import main.App;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -34,7 +35,9 @@ public class CharDelete {
 		Message message = event.getMessage();
 		MessageChannel channel = message.getChannel();
 		
-		Database userDB = new Database("users");
+		Database userDB;
+		if (!App.DEV_MODE) userDB = new Database("users");
+		else userDB = new Database("sampledb");
 		JSONObject users = userDB.getDatabase();
 		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
 		JSONObject characters = (JSONObject) user.get("characters");
@@ -52,7 +55,6 @@ public class CharDelete {
 			final File file = new File("./assets/placeholders/placeholder-icon.png");
 			EmbedBuilder embed = new EmbedBuilder();
 			embed.setTitle("Character Deletion");
-			embed.setColor(new Color(0x1330c2));
 			embed.setAuthor("Orion", null, event.getJDA().getSelfUser().getAvatarUrl());
 			embed.setImage(null);
 			embed.setThumbnail("attachment://placeholder-icon.png");
@@ -80,13 +82,22 @@ public class CharDelete {
 			}
 			
 			/*
-			 * footer generation for embed.
+			 * Sets up the footer with the selected character (or "No Character") and color preference (or 0x1330c2).
+			 * Populates the embed.
+			 * Sends the menu to the channel it was requested from.
 			 */
 			String footer;
 			if (!(selected.get("name") == null)) 
 				footer = selected.get("name") + " (Lv. " + selected.get("level") + ") - " + selected.get("class");
 			else footer = "No Character";
+			
+			Color prefColor;
+			if (!(selected.get("color") == null))
+				prefColor = new Color(Integer.decode((String) selected.get("color")));
+			else prefColor = new Color(0x1330c2);
+			
 			embed.setFooter(footer);
+			embed.setColor(prefColor);
 			
 			/*
 			 * sends the menu in a dm to the requester.
@@ -131,7 +142,9 @@ public class CharDelete {
 				user.put("characters", characters);
 				if (ifCurrent.equals(toRemove))
 					user.put("selected", new JSONObject());
-				userDB.saveDatabase(users);
+				
+				if (!App.DEV_MODE) userDB.saveDatabase(users);
+				else userDB.saveDatabase(users);
 			}
 
 			channel.sendMessage(selected.get("name") + " has been deleted!").queue();

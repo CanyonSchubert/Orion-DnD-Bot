@@ -25,6 +25,5 @@ hs_err_pid*
 *\auth.json
 #.classpath
 #.project
-*\database
 *\placeholders
-*\legacy
+database/json/users.json

@@ -5,6 +5,8 @@ import resources.Authenticator;
 
 public class App {
 	
+	public static boolean DEV_MODE = false;
+	
 	public static void main(String[] args) throws Exception {
 		
 		/*
