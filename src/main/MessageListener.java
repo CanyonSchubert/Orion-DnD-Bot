@@ -78,7 +78,9 @@ public class MessageListener extends ListenerAdapter {
 			 * Grabs the database from database.json.
 			 * 
 			 */
-			Database userDB = new Database("users");
+			Database userDB;
+			if (!App.DEV_MODE) userDB = new Database("users");
+			else userDB = new Database("sampledb");
 			JSONObject users = userDB.getDatabase();
 			
 			if (!(users.containsKey(message.getAuthor().getId())) && !(command.equals("register"))) {

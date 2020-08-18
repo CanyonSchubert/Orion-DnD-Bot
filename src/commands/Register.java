@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import main.App;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -30,7 +31,9 @@ public class Register {
 		 * Grabs the database from database.json.
 		 * 
 		 */
-		Database userDB = new Database("users");
+		Database userDB;
+		if (!App.DEV_MODE) userDB = new Database("users");
+		else userDB = new Database("sampledb");
 		JSONObject users = userDB.getDatabase();
 		
 		Message message = event.getMessage();
@@ -47,7 +50,8 @@ public class Register {
 		user.put("selected", new JSONObject());
 		user.put("characters", new JSONObject());
 		
-		userDB.saveDatabase(users);
+		if (!App.DEV_MODE) userDB.saveDatabase(users);
+		else userDB.saveDatabase(users);
 		
 		if (!(channel.getType() == ChannelType.PRIVATE))
 				channel.sendMessage("Check your DMs - that's where I'll send most of my menus and information relevant only to you in an attempt to not clutter this server!").queue();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import main.App;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -22,7 +23,9 @@ public class Test {
 		if (args.get(0).equals("colorgeneralizer")) {
 			System.out.println("\nTesting the color generalizer algorithm!");
 			
-			Database userDB = new Database("users");
+			Database userDB;
+			if (!App.DEV_MODE) userDB = new Database("users");
+			else userDB = new Database("sampledb");
 			JSONObject users = userDB.getDatabase();
 			JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
 			JSONObject selected = (JSONObject) user.get("selected");

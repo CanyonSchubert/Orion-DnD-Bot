@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import main.App;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -35,7 +36,9 @@ public class CharCreate {
 		Message message = event.getMessage();
 		MessageChannel channel = message.getChannel();
 		
-		Database userDB = new Database("users");
+		Database userDB;
+		if (!App.DEV_MODE) userDB = new Database("users");
+		else userDB = new Database("sampledb");
 		JSONObject users = userDB.getDatabase();
 		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
 		JSONObject characters = (JSONObject) user.get("characters");
@@ -213,7 +216,8 @@ public class CharCreate {
 			character.put("abilities", new ArrayList<String>());
 			user.put("selected", character);
 
-			userDB.saveDatabase(users);
+			if (!App.DEV_MODE) userDB.saveDatabase(users);
+			else userDB.saveDatabase(users);
 			
 			channel.sendMessage("Your character, **" + charName + "** (" + charClass + "), has been successfully created!").queue();
 			return;
