@@ -17,7 +17,7 @@ import resources.Database;
 
 public class Menu {
 
-	public static void run(MessageReceivedEvent event, List<String> args, MessageListener bot) {
+	public static void run(MessageReceivedEvent event, List<String> args) {
 		System.out.println("\nEntered Menu Command!");
 		
 		if (event.getAuthor().isBot()) return;

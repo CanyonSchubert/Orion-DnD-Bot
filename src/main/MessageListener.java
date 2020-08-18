@@ -31,15 +31,14 @@ public class MessageListener extends ListenerAdapter {
 	 * from the file system.
 	 */
 	public MessageListener() {
+		commands.add(Character.class);
+		commands.add(CharColor.class);
+		commands.add(CharCreate.class);
+		commands.add(CharDelete.class);
+		commands.add(CharSelect.class);
 		commands.add(Menu.class);
 		commands.add(Register.class);
-		commands.add(Character.class);
-		commands.add(CharCreate.class);
-		commands.add(CharSelect.class);
-		commands.add(CharDelete.class);
-		commands.add(CharColor.class);
 		commands.add(Test.class);
-		commands.add(Reload.class);
 	}
 	
 	public LinkedList<Class> getCommands() {
@@ -88,11 +87,11 @@ public class MessageListener extends ListenerAdapter {
 				return;
 			}
 			
-			for (int i = 0; i < commands.size();) { // why doesn't this need ++i?
+			for (int i = 0; i < commands.size(); ++i) { // why doesn't this need ++i?
 				if (command.toLowerCase().equals(commands.get(i).getName().replace("commands.", "").toLowerCase())) {
 					try {
-						Method cmd = commands.get(i).getDeclaredMethod("run", MessageReceivedEvent.class, List.class, this.getClass());
-						cmd.invoke(commands.get(i), event, args, this);
+						Method cmd = commands.get(i).getDeclaredMethod("run", MessageReceivedEvent.class, List.class);
+						cmd.invoke(commands.get(i), event, args);
 						return;
 					} catch (NoSuchMethodException e) {
 						System.out.println("Cannot find run method in command: " + commands.get(i).getName().replace("commands.", ""));
@@ -116,10 +115,7 @@ public class MessageListener extends ListenerAdapter {
 						return;
 					}
 				}
-				else {
-					message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
-					break;
-				}
 			}
+			message.getChannel().sendMessage("Command not recognized. Check your command and try again - or try **" + prefix + "register** or **" + prefix + "menu** to get started!").queue();
 		}	
 	}
