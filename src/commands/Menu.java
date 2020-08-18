@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import main.MessageListener;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -16,7 +17,7 @@ import resources.Database;
 
 public class Menu {
 
-	public static void run(MessageReceivedEvent event, List<String> args) {
+	public static void run(MessageReceivedEvent event, List<String> args, MessageListener bot) {
 		System.out.println("\nEntered Menu Command!");
 		
 		if (event.getAuthor().isBot()) return;
