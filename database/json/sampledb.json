@@ -1,0 +1,44 @@
+{
+	"147858725233754112":{
+		"characters":{
+			"Buck":{
+				"abilities":[],
+				"color":"0x1330c2",
+				"level":1,
+				"stats":{},
+				"statpoints":0,
+				"name":"Buck",
+				"bag":[],
+				"class":"Warrior",
+				"talentpoints":0,
+				"gear":{}
+				},
+			"Nino":{
+				"abilities":[],
+				"color":"#54f762",
+				"level":1,
+				"stats":{},
+				"statpoints":0,
+				"name":"Nino",
+				"bag":[],
+				"class":"Sorcerer",
+				"talentpoints":0,
+				"gear":{}
+				}
+			},
+		"selected":{
+			"abilities":[],
+			"color":"#9AFF81",
+			"level":1,
+			"stats":{},
+			"statpoints":0,
+			"name":"Nino",
+			"bag":[],
+			"class":"Sorcerer",
+			"talentpoints":0,
+			"gear":{}
+			},
+		"username":"Goose#4444"
+		}
+
+}
