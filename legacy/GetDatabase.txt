@@ -1,0 +1,14 @@
+JSONObject users = new JSONObject();
+try {
+	users = (JSONObject) json.parse(new FileReader("./database/json/users.json"));		
+} catch (FileNotFoundException e) { 
+	System.out.println("User Database File not found, creating one now!");
+	
+	try (FileWriter file = new FileWriter("./database/json/users.json")) {
+		file.write(users.toString());
+		System.out.println("Successfully saved the user database!");
+	} catch (IOException ex) { ex.printStackTrace(); }
+	
+	channel.sendMessage("My database file was missing! I have made a new one now, please try your command again and sorry for the inconvience!").queue();
+	return;
+} catch (IOException e) { e.printStackTrace(); } catch (ParseException e) { e.printStackTrace(); }

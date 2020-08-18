@@ -1,0 +1,177 @@
+{
+"warrior":
+	{
+	"id":"Warrior",
+	"description":"A brutal fighter wielding an axe, with enough grit, rage, and prowess to be at the center of any conflict.",
+	"tags":["Tank","Melee DPS"],
+	"basestats":
+		{
+		"vitality":8,
+		"spirit":3,
+		"strength":9,
+		"aptitude":1,
+		"agility":3,
+		"finesse":7,
+		"luck":4,
+		"hardiness":7,
+		"resilience":3
+		},
+	"abilities":[],
+	"subclasses":
+		{
+		"barbarian":
+			{
+			"id":"Barbarian"
+			},
+		"berserker":
+			{
+			"id":"Berserker"
+			},
+		"pitfighter":
+			{
+			"id":"Pit Fighter"
+			}
+		},
+	"proficiencies":[]
+	},
+"ranger":
+	{
+	"id":"Ranger",
+	"description":"A skilled archer with superior aim, raining ceaseless death from afar.",
+	"tags":["Ranged DPS"],
+	"basestats":
+		{
+		"vitality":4,
+		"spirit":6,
+		"strength":7,
+		"aptitude":2,
+		"agility":7,
+		"finesse":8,
+		"luck":3,
+		"hardiness":3,
+		"resilience":5
+		},
+	"abilities":[],
+	"subclasses":
+		{
+		"bowmaster":
+			{
+			"id":"Bowmaster"
+			},
+		"sniper":
+			{
+			"id":"Sniper"
+			},
+		"gunslinger":
+			{
+			"id":"Gunslinger"
+			}
+		},
+	"proficiencies":[]
+	},
+"cleric":
+	{
+	"id":"Cleric",
+	"description":"A holy person with the ability to heal and shield allies, but also smite their enemies with holy fire and wrath.",
+	"tags":["Healer","Support","DPS"],
+	"basestats":
+		{
+		"vitality":5,
+		"spirit":7,
+		"strength":3,
+		"aptitude":7,
+		"agility":3,
+		"finesse":2,
+		"luck":8,
+		"hardiness":2,
+		"resilience":8
+		},
+	"abilities":[],
+	"subclasses":
+		{
+		"bishop":
+			{
+			"id":"Bishop"
+			},
+		"diviner":
+			{
+			"id":"Diviner"
+			},
+		"crucifier":
+			{
+			"id":"Crucifier"
+			}
+		},
+	"proficiencies":[]
+	},
+"sorcerer":
+	{
+	"id":"Sorcerer",
+	"description":"An adept apprentice to magic studying the standard schools of magic: Fire, Frost, and the Arcane.",
+	"tags":["Ranged DPS"],
+	"basestats":
+		{
+		"vitality":2,
+		"spirit":6,
+		"strength":2,
+		"aptitude":9,
+		"agility":4,
+		"finesse":9,
+		"luck":3,
+		"hardiness":1,
+		"resilience":9
+		},
+	"abilities":[],
+	"subclasses":
+		{
+		"pyromancer":
+			{
+			"id":"Pyromancer"
+			},
+		"cryomancer":
+			{
+			"id":"Cryomancer"
+			},
+		"arcanist":
+			{
+			"id":"Arcanist"
+			}
+		},
+	"proficiencies":[]
+	},
+"paladin":
+	{
+	"id":"Paladin",
+	"description":"A righteous fighter that can sustain heavy blows, heal allies, and strike foes with holy wrath.",
+	"tags":["Tank","DPS","Healer"],
+	"basestats":
+		{
+		"vitality":7,
+		"spirit":4,
+		"strength":7,
+		"aptitude":5,
+		"agility":2,
+		"finesse":2,
+		"luck":4,
+		"hardiness":7,
+		"resilience":7
+		},
+	"abilities":[],
+	"subclasses":
+		{
+		"crusader":
+			{
+			"id":"Crusader"
+			},
+		"knight":
+			{
+			"id":"Knight"
+			},
+		"purifier":
+			{
+			"id":"Purifier"
+			}
+		},
+	"proficiencies":[]
+	}
+}
