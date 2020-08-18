@@ -26,4 +26,4 @@ hs_err_pid*
 #.classpath
 #.project
 *\placeholders
-*\database/users
+database/json/users.json
