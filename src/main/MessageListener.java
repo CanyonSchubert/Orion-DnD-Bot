@@ -1,13 +1,10 @@
 package main;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -22,6 +19,7 @@ import commands.Character;
 
 public class MessageListener extends ListenerAdapter {
 	
+	@SuppressWarnings("rawtypes")
 	LinkedList<Class> commands = new LinkedList<Class>();
 	
 	/*
@@ -40,6 +38,7 @@ public class MessageListener extends ListenerAdapter {
 		commands.add(Test.class);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public LinkedList<Class> getCommands() {
 		return this.commands;
 	}

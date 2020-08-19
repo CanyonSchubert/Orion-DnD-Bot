@@ -32,9 +32,9 @@ public class Test {
 			
 			String colorGen = "";
 			
-			int red = Integer.decode((String) selected.get("color"));
+			/*int red = Integer.decode((String) selected.get("color"));
 			int green;
-			int blue;
+			int blue;*/
 			
 			
 			
