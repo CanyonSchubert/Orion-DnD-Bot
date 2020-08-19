@@ -9,6 +9,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 public class Database {
 	JSONObject db = new JSONObject();
 	String dbType;
@@ -32,7 +37,9 @@ public class Database {
 	
 	public void saveDatabase(JSONObject db) {
 		try (FileWriter file = new FileWriter("./database/json/" + this.dbType + ".json")) {
-			file.write(db.toString());
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			String dbToSave = gson.toJson(db);
+			file.write(dbToSave);
 			System.out.println("Successfully saved the " + this.dbType + "database!");
 		} catch (IOException e) { e.printStackTrace(); }
 	}
