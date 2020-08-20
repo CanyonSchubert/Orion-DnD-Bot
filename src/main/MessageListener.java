@@ -88,6 +88,14 @@ public class MessageListener extends ListenerAdapter {
 				return;
 			}
 			
+			if (!((JSONObject) users.get(message.getAuthor().getId())).get("username").equals(message.getAuthor().getAsTag())) {
+				JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
+				System.out.println("Updating username for " + message.getAuthor().getId() + " from " + user.get("username") + " to " + message.getAuthor().getAsTag());
+				user.put("username", message.getAuthor().getAsTag());
+				users.put(message.getAuthor().getId(), user);
+				userDB.saveDatabase(users);
+			}
+			
 			for (int i = 0; i < commands.size(); ++i) { // why doesn't this need ++i?
 				if (command.toLowerCase().equals(commands.get(i).getName().replace("commands.", "").toLowerCase())) {
 					try {
