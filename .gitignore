@@ -23,7 +23,7 @@
 hs_err_pid*
 
 *\auth.json
-#.classpath
-#.project
+*.project
 *\placeholders
 database/json/users.json
+*.classpath
