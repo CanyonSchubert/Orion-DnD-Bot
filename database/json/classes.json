@@ -34,41 +34,6 @@
 		},
 	"proficiencies":[]
 	},
-"ranger":
-	{
-	"id":"Ranger",
-	"description":"A skilled archer with superior aim, raining ceaseless death from afar.",
-	"tags":["Ranged DPS"],
-	"basestats":
-		{
-		"vitality":4,
-		"spirit":6,
-		"strength":7,
-		"aptitude":2,
-		"agility":7,
-		"finesse":8,
-		"luck":3,
-		"hardiness":3,
-		"resilience":5
-		},
-	"abilities":[],
-	"subclasses":
-		{
-		"bowmaster":
-			{
-			"id":"Bowmaster"
-			},
-		"sniper":
-			{
-			"id":"Sniper"
-			},
-		"gunslinger":
-			{
-			"id":"Gunslinger"
-			}
-		},
-	"proficiencies":[]
-	},
 "cleric":
 	{
 	"id":"Cleric",
@@ -135,41 +100,6 @@
 		"arcanist":
 			{
 			"id":"Arcanist"
-			}
-		},
-	"proficiencies":[]
-	},
-"paladin":
-	{
-	"id":"Paladin",
-	"description":"A righteous fighter that can sustain heavy blows, heal allies, and strike foes with holy wrath.",
-	"tags":["Tank","DPS","Healer"],
-	"basestats":
-		{
-		"vitality":7,
-		"spirit":4,
-		"strength":7,
-		"aptitude":5,
-		"agility":2,
-		"finesse":2,
-		"luck":4,
-		"hardiness":7,
-		"resilience":7
-		},
-	"abilities":[],
-	"subclasses":
-		{
-		"crusader":
-			{
-			"id":"Crusader"
-			},
-		"knight":
-			{
-			"id":"Knight"
-			},
-		"purifier":
-			{
-			"id":"Purifier"
 			}
 		},
 	"proficiencies":[]
