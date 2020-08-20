@@ -199,7 +199,7 @@ public class CharCreate {
 				return;
 			}
 			
-			JSONObject gear = new JSONObject();
+			JSONObject gear = new JSONObject(); // TODO: Should base classes get a base set of armor?
 			gear.put("head", "");
 			gear.put("chest", "");
 			gear.put("legs", "");
