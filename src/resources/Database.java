@@ -29,7 +29,7 @@ public class Database {
 	}
 	
 	public JSONObject getDatabase() {
-		System.out.println("Successfully retrieved the " + this.dbType + " database!");
+		System.out.println("Successfully retrieved the " + this.dbType + " database!\n");
 		return this.db;
 	}
 	
@@ -38,7 +38,7 @@ public class Database {
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
 			String dbToSave = gson.toJson(db);
 			file.write(dbToSave);
-			System.out.println("Successfully saved the " + this.dbType + "database!");
+			System.out.println("Successfully saved the " + this.dbType + " database!\n");
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	

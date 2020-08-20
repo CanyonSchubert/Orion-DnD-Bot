@@ -5,38 +5,92 @@
         "abilities": [],
         "color": "0x1330c2",
         "level": 1,
-        "stats": {},
+        "stats": {
+          "hardiness": 7,
+          "luck": 4,
+          "strength": 9,
+          "vitality": 8,
+          "spirit": 3,
+          "aptitude": 1,
+          "agility": 3,
+          "finesse": 7,
+          "resilience": 3
+        },
         "statpoints": 0,
         "name": "Buck",
         "bag": [],
         "class": "Warrior",
         "talentpoints": 0,
-        "gear": {}
+        "gear": {
+          "head": "",
+          "trinket2": "",
+          "mainhand": "",
+          "trinket1": "",
+          "chest": "",
+          "legs": "",
+          "offhand": ""
+        }
       },
       "Nino": {
         "abilities": [],
         "color": "#9AFF81",
         "level": 1,
-        "stats": {},
+        "stats": {
+          "hardiness": 1,
+          "luck": 3,
+          "strength": 2,
+          "vitality": 2,
+          "spirit": 6,
+          "aptitude": 9,
+          "agility": 4,
+          "finesse": 9,
+          "resilience": 9
+        },
         "statpoints": 0,
         "name": "Nino",
         "bag": [],
         "class": "Sorcerer",
         "talentpoints": 0,
-        "gear": {}
+        "gear": {
+          "head": "",
+          "trinket2": "",
+          "mainhand": "",
+          "trinket1": "",
+          "chest": "",
+          "legs": "",
+          "offhand": ""
+        }
       }
     },
     "selected": {
       "abilities": [],
       "color": "#9AFF81",
       "level": 1,
-      "stats": {},
+      "stats": {
+        "hardiness": 1,
+        "luck": 3,
+        "strength": 2,
+        "vitality": 2,
+        "spirit": 6,
+        "aptitude": 9,
+        "agility": 4,
+        "finesse": 9,
+        "resilience": 9
+      },
       "statpoints": 0,
       "name": "Nino",
       "bag": [],
       "class": "Sorcerer",
       "talentpoints": 0,
-      "gear": {}
+      "gear": {
+        "head": "",
+        "trinket2": "",
+        "mainhand": "",
+        "trinket1": "",
+        "chest": "",
+        "legs": "",
+        "offhand": ""
+      }
     },
     "username": "Goose#4444"
   }
