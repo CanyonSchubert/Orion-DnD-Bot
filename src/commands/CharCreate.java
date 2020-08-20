@@ -178,10 +178,12 @@ public class CharCreate {
 			int switchCount = 1;
 			boolean classFound = false;
 			JSONObject controlClass = new JSONObject();
+			JSONObject stats = new JSONObject();
 			for (Object nextClass : classes.values()) {
 				controlClass = (JSONObject) nextClass;
 				if (args.get(1).equals(Integer.toString(switchCount))) {
 					charClass = (String) controlClass.get("id");
+					stats = (JSONObject) controlClass.get("basestats");
 					classFound = true;
 					break;
 				}
@@ -197,6 +199,15 @@ public class CharCreate {
 				return;
 			}
 			
+			JSONObject gear = new JSONObject();
+			gear.put("head", "");
+			gear.put("chest", "");
+			gear.put("legs", "");
+			gear.put("trinket1", "");
+			gear.put("trinket2", "");
+			gear.put("mainhand", "");
+			gear.put("offhand", "");
+			
 			/*
 			 * Sets the new character in the user database.
 			 * Saves the user database.
@@ -208,9 +219,9 @@ public class CharCreate {
 			character.put("color", "0x1330c2");
 			character.put("class", charClass);
 			character.put("level", 1);
-			character.put("gear", new JSONObject()); // TODO: Create empty slots when gear slots are determined
+			character.put("gear", gear);
 			character.put("bag", new ArrayList<String>());
-			character.put("stats", new JSONObject()); // TODO: Create and populate slots from base stats in the class database
+			character.put("stats", stats);
 			character.put("statpoints", 0);
 			character.put("talentpoints", 0);
 			character.put("abilities", new ArrayList<String>());
