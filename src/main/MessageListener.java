@@ -28,6 +28,7 @@ public class MessageListener extends ListenerAdapter {
 	 * from the file system.
 	 */
 	public MessageListener() {
+		commands.add(Adventure.class);
 		commands.add(Character.class);
 		commands.add(CharColor.class);
 		commands.add(CharCreate.class);

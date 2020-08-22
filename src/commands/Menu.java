@@ -61,9 +61,9 @@ public class Menu {
 				.setTitle("Main Menu")
 				.setColor(prefColor)
 				.setDescription("Please pick a command from this menu. For a more detailed description of the command, use " + prefix + "help [menu item].")
-				.addField("Character Menu", "**" + prefix + "character**", false)
-				.addField("Party Menu", "**" + prefix + "party**", false)
-				.addField("Adventure Menu", "**" + prefix + "adventure**", false)
+				.addField("Character Menu", prefix + "character", false)
+				.addField("Party Menu", prefix + "party", false)
+				.addField("Adventure Menu", prefix + "adventure", false)
 				.setAuthor("Orion", null, event.getJDA().getSelfUser().getAvatarUrl()) // TODO: Update Discord avatar to official logo, Change null to official webpage
 				.setFooter(footer)
 				.setImage("attachment://placeholder-title.jpg") // TODO: See line "File file2..."
