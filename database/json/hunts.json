@@ -1,0 +1,17 @@
+{
+	"cedarwoodcave":{
+		"name":"Cedarwood Cave",
+		"id":1,
+		"enabled":true,
+		"description":"Watch out! Spiders! (I'll write a better description for this later lmao)",
+		"difficulty":"Tutorial",
+		"suggested_level":1
+		"min_enemies":3,
+		"max_enemies":3,
+		"enemy_pool":["cedarwoodspider"],
+		"width":5,
+		"height":5,
+		"enemy_positions":["E5","E4","D5","D4","C5","E3"],
+		"player_positions":["A1","A2","A3","B1","B2","C1"]
+	}
+}

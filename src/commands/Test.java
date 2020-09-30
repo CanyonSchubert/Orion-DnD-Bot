@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 
 import main.App;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.ClientType;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -97,9 +99,24 @@ public class Test {
 					.setColor(prefColor)
 					.addField(Constants.CEDARWOOD_CAVE_NAME, "Nino Lv. 3 --- HP 50/50 | Mana 20/100\nBuck Lv. 5 --- HP 62/70 | Rage 2/20", false)
 					;
-
+			
 			channel.sendMessage(embed.build()).queue();
-			channel.sendMessage(gridOut).queue();
+
+			if (!(channel.getType() == ChannelType.PRIVATE)) {
+				if (message.getGuild().getMember(message.getAuthor()).getActiveClients().contains(ClientType.MOBILE)) {
+					EmbedBuilder mobile = new EmbedBuilder()
+							.setColor(prefColor)
+							.addField("hello mobile users :)", gridOut, false)
+							;
+					channel.sendMessage(mobile.build()).queue();
+					return;
+				}
+				else channel.sendMessage(gridOut).queue();
+			}
+			else {
+				channel.sendMessage("Sorry if this looks bad, I haven't figured out how to tell if you're on a phone if you DM me!").queue();
+				channel.sendMessage(gridOut).queue();
+			}
 		}
 	}
 

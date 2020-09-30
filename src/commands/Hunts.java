@@ -3,6 +3,7 @@ package commands;
 import java.awt.Color;
 import java.io.File;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -40,6 +41,12 @@ public class Hunts {
 		JSONObject user = (JSONObject) users.get(message.getAuthor().getId());
 		JSONObject selected = (JSONObject) user.get("selected");
 		
+		/*
+		 * Grabs the class database.
+		 */
+		Database huntsDB = new Database("hunts");
+		JSONObject hunts = huntsDB.getDatabase();
+		
 		if (args.size() == 0) {
 		
 			/*
@@ -61,18 +68,50 @@ public class Hunts {
 			EmbedBuilder embed = new EmbedBuilder()
 					.setTitle("Hunts Menu") // TODO: If user is new, suggest tutorial?
 					.setColor(prefColor)
-					.setDescription("Please pick a command from this menu. For a more detailed description of the command, use " + prefix + "help [menu item].") // TODO: re-enter command with args of appropriate hunt
-					.addField("Start a Hunt", prefix + "hunts", false) // TODO: List all Hunts from database here
-					.addField("Start a Dungeon", prefix + "dungeons", false)
-					.addField("Start a Raid", prefix + "raids", false)
-					.addField("Change Preferred Battle Color", prefix + "battlecolor", false)
+					.setDescription("Please re-enter this command with a number as an argument. Every available hunt is listed below with it's corresponding number. (ex. **" + prefix + "hunts 1** for Cedarwood Cave)")
 					.setAuthor("Orion", null, event.getJDA().getSelfUser().getAvatarUrl()) // TODO: Update Discord avatar to official logo, Change null to official webpage
 					.setFooter(footer)
 					.setThumbnail("attachment://placeholder-icon.png") // TODO: See line "File file..."
 					.setTimestamp(Instant.now())
 					;
-	
+			
+			/*
+			 * Field Generation for embed
+			 */
+			int huntNum = 1;
+			JSONObject currHunt = new JSONObject();
+			String title = "";
+			String field = "";
+			for (Object nextHunt : hunts.values()) {
+				currHunt = (JSONObject) nextHunt;
+				
+				/*
+				 * title for each field
+				 */
+				title = huntNum + ". **" + currHunt.get("name") + "** (Difficulty: " + currHunt.get("difficulty") + " | Suggested Party Level: " + currHunt.get("suggested_level") + ")";
+				
+				/*
+				 * body for each field
+				 */ // TODO: for enemy pool, use the key found here to go into the enemy database and get the actual name
+				field = currHunt.get("description") + "\nPossible Enemies: " + currHunt.get("enemy_pool").toString() + "\nAmount of Enemies: " + currHunt.get("min_enemies") + "-" + currHunt.get("max_enemies");
+				
+				embed.addField(title, field, true);
+				
+				/*
+				 * next class
+				 */
+				++huntNum;
+			}
+			
 			channel.sendMessage(embed.build()).addFile(file, "placeholder-icon.png").queue();
+			return;
+		}
+		
+		if (args.size() == 1) {
+			
+		}
+		else {
+			channel.sendMessage("The command was entered incorrectly. Try *" + prefix + "hunts* and carefully follow the instructions.").queue();
 			return;
 		}
 	}

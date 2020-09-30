@@ -34,6 +34,7 @@ public class MessageListener extends ListenerAdapter {
 		commands.add(CharCreate.class);
 		commands.add(CharDelete.class);
 		commands.add(CharSelect.class);
+		commands.add(Hunts.class);
 		commands.add(Inject.class);
 		commands.add(Menu.class);
 		commands.add(Register.class);
